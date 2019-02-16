@@ -9,5 +9,6 @@
   	<module>lubm-uba</module>
   	<module>lubm-ubt</module>
   	<module>lubm-api</module>
+  	<module>lubm-rdf4j</module>
   </modules>
 </project>
