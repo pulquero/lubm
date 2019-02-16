@@ -5,10 +5,30 @@
   <version>1.0</version>
   <packaging>pom</packaging>
   <name>LUBM</name>
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+  </properties>
+
   <modules>
   	<module>lubm-uba</module>
   	<module>lubm-ubt</module>
   	<module>lubm-api</module>
   	<module>lubm-rdf4j</module>
+  	<module>lubm-halyard</module>
   </modules>
+  <dependencyManagement>
+  	<dependencies>
+	  	<dependency>
+	  		<groupId>io.github.pulquero.lubm</groupId>
+	  		<artifactId>lubm-api</artifactId>
+	  		<version>1.1</version>
+	  	</dependency>
+	  	<dependency>
+	  		<groupId>io.github.pulquero.lubm</groupId>
+	  		<artifactId>lubm-rdf4j</artifactId>
+	  		<version>1.0</version>
+	  	</dependency>
+  	</dependencies>
+  </dependencyManagement>
 </project>

@@ -42,7 +42,8 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		this.repo = repo;
 	}
 
-	public void open(String tableName) {
+	public void open(String database) {
+		configure(database);
 		repo.initialize();
 
 		if (ontology != null) {
@@ -55,6 +56,10 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 				throw new RuntimeException(ioe);
 			}
 		}
+	}
+
+	protected void configure(String database) {
+		repo.setDataDir(new File(database));
 	}
 
 	public void setOntology(String ontology) {

@@ -14,7 +14,6 @@
   	<dependency>
   		<groupId>io.github.pulquero.lubm</groupId>
   		<artifactId>lubm-api</artifactId>
-  		<version>1.1</version>
   	</dependency>
   	<dependency>
   		<groupId>org.eclipse.rdf4j</groupId>
