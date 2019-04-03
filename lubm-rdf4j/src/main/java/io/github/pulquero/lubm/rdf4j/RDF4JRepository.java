@@ -84,20 +84,22 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		ExecutorCompletionService<Void> completionService = new ExecutorCompletionService<>(executor);
 		final Object endOfQueue = new Object();
 		BlockingQueue<Object> ingestQueue = new LinkedBlockingQueue<>();
-		completionService.submit(() -> {
-			Object next;
-			try (RepositoryConnection conn = repo.getConnection()) {
-				conn.begin();
-				while ((next = ingestQueue.take()) != endOfQueue) {
-					File f = (File)next;
-					System.out.println(
-							String.format("[%s] Loading file: %s", Thread.currentThread().getName(), f));
-					conn.add(f, null, RDFFormat.RDFXML);
+		for (int i = 0; i < threadCount; i++) {
+			completionService.submit(() -> {
+				Object next;
+				try (RepositoryConnection conn = repo.getConnection()) {
+					conn.begin();
+					while ((next = ingestQueue.take()) != endOfQueue) {
+						File f = (File)next;
+						System.out.println(
+								String.format("[%s] Loading file: %s", Thread.currentThread().getName(), f));
+						conn.add(f, null, RDFFormat.RDFXML);
+					}
+					conn.commit();
 				}
-				conn.commit();
-			}
-			return null;
-		});
+				return null;
+			});
+		}
 
 		try {
 			File dir = new File(dataPath);
