@@ -28,9 +28,9 @@
   		<artifactId>lubm-rdf4j</artifactId>
   	</dependency>
   	<dependency>
-  		<groupId>com.msd.gin.halyard</groupId>
+  		<groupId>io.github.pulquero.halyard</groupId>
   		<artifactId>halyard-sail</artifactId>
-  		<version>2.2-SNAPSHOT</version>
+  		<version>2.6</version>
   	</dependency>
         <dependency>
             <groupId>org.apache.hbase</groupId>
