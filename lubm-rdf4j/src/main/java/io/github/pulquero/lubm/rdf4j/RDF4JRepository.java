@@ -42,9 +42,10 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		this.repo = repo;
 	}
 
+	@Override
 	public void open(String database) {
 		configure(database);
-		repo.initialize();
+		repo.init();
 
 		if (ontology != null) {
 			System.out.println(String.format("Loading ontology: %s", ontology));
@@ -62,10 +63,12 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		repo.setDataDir(new File(database));
 	}
 
+	@Override
 	public void setOntology(String ontology) {
 		this.ontology = ontology;
 	}
 
+	@Override
 	public void clear() {
 		try(RepositoryConnection conn = repo.getConnection()) {
 			conn.begin();
@@ -74,10 +77,12 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		}
 	}
 
+	@Override
 	public void close() {
 		repo.shutDown();
 	}
 
+	@Override
 	public boolean load(String dataPath) {
 		int threadCount = Runtime.getRuntime().availableProcessors();
 		ExecutorService executor = Executors.newFixedThreadPool(threadCount);
@@ -130,6 +135,7 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 		return true;
 	}
 
+	@Override
 	public edu.lehigh.swat.bench.ubt.api.QueryResult issueQuery(edu.lehigh.swat.bench.ubt.api.Query query) {
 		String sparql = query.getString();
 		System.out.println(String.format("Executing query:\n%s", sparql));
@@ -138,10 +144,12 @@ public class RDF4JRepository implements edu.lehigh.swat.bench.ubt.api.Repository
 			return new edu.lehigh.swat.bench.ubt.api.QueryResult() {
 				Iterator<?> iter = res.iterator();
 
+				@Override
 				public long getNum() {
 					return res.size();
 				}
 
+				@Override
 				public boolean next() {
 					boolean hasNext = iter.hasNext();
 					if(hasNext) {
